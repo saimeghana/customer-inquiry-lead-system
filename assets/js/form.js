@@ -115,19 +115,19 @@
 
   /* ── Zapier submission ────────────────────────────────────── */
   async function submitToZapier(payload) {
-    // Zapier webhooks don't return CORS headers, so browsers block the response.
-    // Using mode: 'no-cors' sends the data successfully — Zapier receives it —
-    // but the response is opaque (status 0). We treat any completed fetch as success.
-    // NOTE: no-cors only allows "simple" headers.
-    // Content-Type: application/json is not simple — it triggers a preflight
-    // that Zapier doesn't support, causing "Failed to fetch".
-    // Omitting Content-Type lets the browser send it as a simple POST.
+    // Zapier webhooks don't send CORS headers, so we use mode: 'no-cors'.
+    // JSON with no Content-Type header arrives as a plain text blob —
+    // Zapier can't split it into named fields, so Airtable columns stay empty.
+    //
+    // Fix: send as URLSearchParams (application/x-www-form-urlencoded).
+    // This is a CORS-safelisted content type (no preflight) AND Zapier
+    // automatically parses each key into its own named field token.
     await fetch(CONFIG.ZAPIER_WEBHOOK_URL, {
       method: "POST",
       mode: "no-cors",
-      body: JSON.stringify(payload),
+      body: new URLSearchParams(payload),
     });
-    // If fetch() didn't throw, the request reached Zapier.
+    // If fetch() didn't throw, the request reached Zapier with all fields intact.
   }
 
   /* ── Airtable direct submission ───────────────────────────── */
