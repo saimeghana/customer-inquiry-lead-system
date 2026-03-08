@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Customer Inquiry</title>
+  <meta name="description" content="Get in touch with our team. We'll respond within 24 hours." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">YourBrand</span>
+      </div>
+      <nav>
+        <a href="#form-section">Contact</a>
+        <a href="#how-it-works">How It Works</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="badge">Now accepting inquiries</span>
+        <h1>Let's talk about<br /><span class="accent">your project</span></h1>
+        <p class="hero-sub">Fill in the form and our team will get back to you within 24 hours. No spam, no pressure.</p>
+        <ul class="trust-list">
+          <li>✓ Response within 24 hours</li>
+          <li>✓ Free initial consultation</li>
+          <li>✓ No commitment required</li>
+        </ul>
+      </div>
+      <div class="hero-form" id="form-section">
+        <div class="form-card">
+          <h2>Send us a message</h2>
+          <p class="form-subtitle">Tell us a bit about yourself and what you need.</p>
+
+          <!-- Success state -->
+          <div id="form-success" class="form-success hidden">
+            <div class="success-icon">✓</div>
+            <h3>Message received!</h3>
+            <p>Thanks for reaching out. A member of our team will contact you within 24 hours.</p>
+            <button class="btn btn-secondary" onclick="resetForm()">Send another message</button>
+          </div>
+
+          <!-- Error state -->
+          <div id="form-error" class="form-error hidden">
+            <p>⚠️ Something went wrong. Please try again or email us directly.</p>
+          </div>
+
+          <!-- The form -->
+          <form id="inquiry-form" novalidate>
+
+            <div class="field-row two-col">
+              <div class="field-group">
+                <label for="firstName">First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" placeholder="Jane" required autocomplete="given-name" />
+                <span class="field-error" id="err-firstName"></span>
+              </div>
+              <div class="field-group">
+                <label for="lastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="lastName" name="lastName" placeholder="Smith" required autocomplete="family-name" />
+                <span class="field-error" id="err-lastName"></span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="jane@company.com" required autocomplete="email" />
+              <span class="field-error" id="err-email"></span>
+            </div>
+
+            <div class="field-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel" />
+            </div>
+
+            <div class="field-group">
+              <label for="company">Company / Organization</label>
+              <input type="text" id="company" name="company" placeholder="Acme Inc." autocomplete="organization" />
+            </div>
+
+            <div class="field-group">
+              <label for="inquiryType">Type of Inquiry <span class="required">*</span></label>
+              <select id="inquiryType" name="inquiryType" required>
+                <option value="">Select an option…</option>
+                <option value="General Question">General Question</option>
+                <option value="Request a Demo">Request a Demo</option>
+                <option value="Partnership Opportunity">Partnership Opportunity</option>
+                <option value="Pricing & Plans">Pricing &amp; Plans</option>
+                <option value="Support">Support</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="field-error" id="err-inquiryType"></span>
+            </div>
+
+            <div class="field-group">
+              <label for="budget">Estimated Budget</label>
+              <select id="budget" name="budget">
+                <option value="">Prefer not to say</option>
+                <option value="Under $1,000">Under $1,000</option>
+                <option value="$1,000 – $5,000">$1,000 – $5,000</option>
+                <option value="$5,000 – $20,000">$5,000 – $20,000</option>
+                <option value="$20,000+">$20,000+</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="message">Message <span class="required">*</span></label>
+              <textarea id="message" name="message" rows="4" placeholder="Describe your project or question in a few sentences…" required></textarea>
+              <span class="field-error" id="err-message"></span>
+            </div>
+
+            <div class="field-group checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="consent" name="consent" required />
+                <span>I agree to be contacted by the team regarding my inquiry. <span class="required">*</span></span>
+              </label>
+              <span class="field-error" id="err-consent"></span>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn btn-primary">
+              <span id="btn-text">Send Message</span>
+              <span id="btn-loader" class="loader hidden"></span>
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2>What happens after you submit?</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Stored instantly</h3>
+          <p>Your inquiry is saved to our lead database (Airtable) the moment you click submit.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Team notified</h3>
+          <p>Our sales team receives an instant Slack and email notification with your details.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Follow-up scheduled</h3>
+          <p>A follow-up task is automatically created and assigned within 24 hours.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>You hear from us</h3>
+          <p>A team member reaches out via your preferred contact method.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 YourBrand. All rights reserved.</p>
+      <p class="footer-note">Built with ♥ — powered by Airtable &amp; Zapier</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/form.js"></script>
+</body>
+</html>
