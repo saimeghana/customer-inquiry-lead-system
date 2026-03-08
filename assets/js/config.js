@@ -16,7 +16,7 @@ const CONFIG = {
   // ── Zapier Webhook ────────────────────────────────────────────────────────
   // Create a "Webhooks by Zapier > Catch Hook" trigger and paste the URL here.
   // Zapier will forward each submission to Airtable, email, Slack, etc.
-  ZAPIER_WEBHOOK_URL: "https://hooks.zapier.com/hooks/catch/YOUR_HOOK_ID/YOUR_HOOK_KEY/",
+  ZAPIER_WEBHOOK_URL: "https://hooks.zapier.com/hooks/catch/26732947/ux6nc4a/",
 
   // ── Direct Airtable API (alternative / parallel path) ────────────────────
   // If you want the form to ALSO write directly to Airtable (bypassing Zapier),
