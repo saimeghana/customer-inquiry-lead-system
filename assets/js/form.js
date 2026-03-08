@@ -115,13 +115,16 @@
 
   /* ── Zapier submission ────────────────────────────────────── */
   async function submitToZapier(payload) {
-    const res = await fetch(CONFIG.ZAPIER_WEBHOOK_URL, {
+    // Zapier webhooks don't return CORS headers, so browsers block the response.
+    // Using mode: 'no-cors' sends the data successfully — Zapier receives it —
+    // but the response is opaque (status 0). We treat any completed fetch as success.
+    await fetch(CONFIG.ZAPIER_WEBHOOK_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error(`Zapier responded with status ${res.status}`);
-    return res;
+    // If fetch() didn't throw, the request reached Zapier.
   }
 
   /* ── Airtable direct submission ───────────────────────────── */
